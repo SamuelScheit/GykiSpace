@@ -1,6 +1,8 @@
 package gykispace;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,8 +18,9 @@ public class GUI extends JFrame {
     private JPanel mainPanel;
     private JTabbedPane tabbar;
     private Map<String, JScrollPane> scroller = new HashMap<>();
-    private Map<String, JPanel> lists = new HashMap<>();
+    public Map<String, JPanel> lists = new HashMap<>();
     private static GUI instance;
+    private ImageIcon indicator = new ImageIcon(getClass().getResource("./indicator.png"));
 
     static public GUI getInstance() {
         if (instance == null) instance = new GUI();
@@ -43,15 +46,19 @@ public class GUI extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    // Send
-                    Client.getInstance().send(input.getText());
-                    input.setText("");
                     String room = tabbar.getTitleAt(tabbar.getSelectedIndex());
-
-                    scroller.get(room).getVerticalScrollBar().setValue(scroller.get(room).getVerticalScrollBar().getMaximum());
+                    Client.getInstance().send(room, input.getText());
+                    input.setText("");
                 }
             }
 
+        });
+
+        tabbar.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                tabbar.setIconAt(tabbar.getSelectedIndex(), null);
+            }
         });
 
         /*
@@ -95,12 +102,29 @@ public class GUI extends JFrame {
         });
     }
 
-    public void log(String name, String value) {
+    public void log(String room, String value) {
         JLabel label = new JLabel(value);
-        if (tabbar.indexOfTab(name) == -1) return;
+        if (tabbar.indexOfTab(room) == -1) return;
 
-        lists.get(name).add(label);
-        scroller.get(name).validate();
+        if (tabbar.getSelectedIndex() != tabbar.indexOfTab(room)) {
+            tabbar.setIconAt(tabbar.getSelectedIndex(), indicator);
+        }
+
+        lists.get(room).add(label);
+        scroller.get(room).validate();
+        scroller.get(room).getVerticalScrollBar().setValue(scroller.get(room).getVerticalScrollBar().getMaximum());
+    }
+
+    public void message(String room, String username, String content) {
+        String value;
+        var messages = Client.getInstance().messages.get(room);
+        if (messages.get(messages.size() - 1)[0].equals(username)) {
+            // message is from the same user -> don't display username only content
+            value = content;
+        } else {
+            value = String.format("<html><b>%s</b>\n%s</html>", username, content);
+        }
+        log(room, value);
     }
 
     public void log(String value) {
