@@ -51,7 +51,6 @@ public class GUI extends JFrame {
                     input.setText("");
                 }
             }
-
         });
 
         tabbar.addChangeListener(new ChangeListener() {
@@ -115,7 +114,7 @@ public class GUI extends JFrame {
     public void message(String room, String username, String content) {
         String value;
         var messages = Client.getInstance().messages.get(room);
-        if (messages.size() > 1 && messages.get(messages.size() - 2)[0].equals(username)) {
+        if (messages != null && messages.size() > 1 && messages.get(messages.size() - 2)[0].equals(username)) {
             // message is from the same user -> don't display username only content
             value = content;
         } else {
