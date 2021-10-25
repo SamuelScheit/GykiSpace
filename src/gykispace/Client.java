@@ -13,7 +13,7 @@ public class Client implements Runnable {
     private static final int PORT = 8052;
     private static final int SEPARATOR = 0x1d;
     private static final String PREFIX = "GykiSpace";
-    private static final String PUBLIC = "Public";
+    public static final String PUBLIC = "Public";
     private static final int MAX_PACKET_SIZE = 2048;
     private static final int TIMEOUT = 0;
     private static InetAddress broadcastAddress;

@@ -20,7 +20,7 @@ public class GUI extends JFrame {
     private Map<String, JScrollPane> scroller = new HashMap<>();
     public Map<String, JPanel> lists = new HashMap<>();
     private static GUI instance;
-    private Font font = new Font("SansSerif", Font.PLAIN, 15);
+    private Font font = new Font("SansSerif", Font.PLAIN, 17);
     private ImageIcon indicator = new ImageIcon(getClass().getResource("./indicator.png"));
 
     static public GUI getInstance() {
@@ -43,6 +43,9 @@ public class GUI extends JFrame {
                     String room = tabbar.getTitleAt(tabbar.getSelectedIndex());
                     String content = input.getText().trim();
                     if (content.length() == 0) return;
+                    if (!room.equals(Client.PUBLIC)) {
+                        message(room, Client.getInstance().username, content);
+                    }
 
                     Client.getInstance().send(room, content);
                     input.setText("");
