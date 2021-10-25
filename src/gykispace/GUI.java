@@ -20,6 +20,7 @@ public class GUI extends JFrame {
     private Map<String, JScrollPane> scroller = new HashMap<>();
     public Map<String, JPanel> lists = new HashMap<>();
     private static GUI instance;
+    private Font font = new Font("SansSerif", Font.PLAIN, 15);
     private ImageIcon indicator = new ImageIcon(getClass().getResource("./indicator.png"));
 
     static public GUI getInstance() {
@@ -34,20 +35,16 @@ public class GUI extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
 
-        send.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
         input.grabFocus();
-
         input.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     String room = tabbar.getTitleAt(tabbar.getSelectedIndex());
-                    Client.getInstance().send(room, input.getText());
+                    String content = input.getText().trim();
+                    if (content.length() == 0) return;
+
+                    Client.getInstance().send(room, content);
                     input.setText("");
                 }
             }
@@ -104,11 +101,8 @@ public class GUI extends JFrame {
 
     public void log(String room, String value) {
         JLabel label = new JLabel(value);
+        label.setFont(font);
         if (tabbar.indexOfTab(room) == -1) return;
-
-        if (tabbar.getSelectedIndex() != tabbar.indexOfTab(room)) {
-            tabbar.setIconAt(tabbar.getSelectedIndex(), indicator);
-        }
 
         lists.get(room).add(label);
         scroller.get(room).validate();
@@ -118,12 +112,17 @@ public class GUI extends JFrame {
     public void message(String room, String username, String content) {
         String value;
         var messages = Client.getInstance().messages.get(room);
-        if (messages.get(messages.size() - 1)[0].equals(username)) {
+        if (messages.size() > 1 && messages.get(messages.size() - 2)[0].equals(username)) {
             // message is from the same user -> don't display username only content
             value = content;
         } else {
-            value = String.format("<html><b>%s</b>\n%s</html>", username, content);
+            value = String.format("<html><b style=\"font-size: 15px;\">%s</b><br />%s</html>", username, content);
         }
+
+        if (tabbar.getSelectedIndex() != tabbar.indexOfTab(room)) {
+            tabbar.setIconAt(tabbar.indexOfTab(room), indicator);
+        }
+
         log(room, value);
     }
 
