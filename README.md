@@ -1,4 +1,4 @@
-# Gyki Space Chat
+# Gyki Space
 
 ## Abstract
 This protocol defines the protocol to communicate between the GykiSpace server and client over a text interface. This is Version 1 and there are no revisions planned. 
