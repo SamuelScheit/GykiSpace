@@ -1,30 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="gykispace.GUI">
-  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="10" left="10" bottom="10" right="10"/>
     <constraints>
-      <xy x="20" y="20" width="500" height="400"/>
+      <xy x="20" y="20" width="1012" height="400"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
-      <grid id="da80e" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="0" left="10" bottom="0" right="10"/>
+      <grid id="da80e" binding="colors" custom-create="true" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
         <border type="none"/>
         <children>
-          <component id="12336" class="javax.swing.JTextField" binding="input">
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-            </constraints>
+          <component id="276af" class="javax.swing.JButton" default-binding="true">
+            <constraints/>
             <properties>
-              <font size="20"/>
-              <opaque value="false"/>
+              <background color="-16729344"/>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="3860a" class="javax.swing.JButton" default-binding="true">
+            <constraints/>
+            <properties>
+              <background color="-4592"/>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="5a766" class="javax.swing.JButton" default-binding="true">
+            <constraints/>
+            <properties>
+              <background color="-785917"/>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="b5c1b" class="javax.swing.JButton" default-binding="true">
+            <constraints/>
+            <properties>
+              <background color="-22311"/>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="80720" class="javax.swing.JButton" default-binding="true">
+            <constraints/>
+            <properties>
+              <background color="-7405313"/>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="611ff" class="javax.swing.JButton" default-binding="true">
+            <constraints/>
+            <properties>
+              <background color="-14651176"/>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="ef5aa" class="javax.swing.JButton" default-binding="true">
+            <constraints/>
+            <properties>
+              <background color="-13355945"/>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="90b74" class="javax.swing.JButton" default-binding="true">
+            <constraints/>
+            <properties>
+              <background color="-7960954"/>
+              <text value=""/>
             </properties>
           </component>
         </children>
@@ -36,11 +80,24 @@
           </grid>
         </constraints>
         <properties>
+          <alignmentX value="0.0"/>
+          <alignmentY value="0.0"/>
           <autoscrolls value="false"/>
         </properties>
         <border type="none"/>
         <children/>
       </tabbedpane>
+      <component id="12336" class="javax.swing.JTextField" binding="input">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <font size="20"/>
+          <opaque value="false"/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>

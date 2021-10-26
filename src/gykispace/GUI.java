@@ -4,19 +4,18 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
 
 public class GUI extends JFrame {
     private JButton send;
     private JTextField input;
     private JPanel mainPanel;
     private JTabbedPane tabbar;
+    private JPanel colors;
     private Map<String, JScrollPane> scroller = new HashMap<>();
     public Map<String, JPanel> lists = new HashMap<>();
     private static GUI instance;
@@ -34,31 +33,6 @@ public class GUI extends JFrame {
         setSize(800, 600);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
-
-        input.grabFocus();
-        input.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    String room = tabbar.getTitleAt(tabbar.getSelectedIndex());
-                    String content = input.getText().trim();
-                    if (content.length() == 0) return;
-                    if (!room.equals(Client.PUBLIC)) {
-                        message(room, Client.getInstance().username, content);
-                    }
-
-                    Client.getInstance().send(room, content);
-                    input.setText("");
-                }
-            }
-        });
-
-        tabbar.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                tabbar.setIconAt(tabbar.getSelectedIndex(), null);
-            }
-        });
 
         /*
         theme.setModel(new DefaultComboBoxModel<>(Arrays.stream(UIManager.getInstalledLookAndFeels()).map(UIManager.LookAndFeelInfo::getName).toArray()));
@@ -83,6 +57,40 @@ public class GUI extends JFrame {
             }
         });
          */
+    }
+
+    private void createUIComponents() {
+        input.grabFocus();
+        input.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    String room = tabbar.getTitleAt(tabbar.getSelectedIndex());
+                    String content = input.getText().trim();
+                    if (content.length() == 0) return;
+                    if (!room.equals(Client.PUBLIC)) {
+                        message(room, Client.getInstance().username, content);
+                    }
+
+                    Client.getInstance().send(room, content);
+                    input.setText("");
+                }
+            }
+        });
+
+        colors.setLayout(new GridLayout(1, 8));
+
+        for (var component : colors.getComponents()) {
+            JButton color = (JButton) component;
+            System.out.println(color);
+        }
+
+        tabbar.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                tabbar.setIconAt(tabbar.getSelectedIndex(), null);
+            }
+        });
     }
 
     public void updateRooms() {
